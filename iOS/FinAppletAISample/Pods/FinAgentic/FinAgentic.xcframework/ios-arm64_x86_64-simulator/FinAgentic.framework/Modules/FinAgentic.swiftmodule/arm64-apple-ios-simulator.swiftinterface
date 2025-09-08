@@ -1,0 +1,179 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.0.3 effective-5.10 (swiftlang-6.0.3.1.10 clang-1600.0.30.1)
+// swift-module-flags: -target arm64-apple-ios14.1-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name FinAgentic
+// swift-module-flags-ignorable: -no-verify-emitted-module-interface
+import Down
+@_exported import FinAgentic
+import Foundation
+import SandboxSDK
+import Swift
+import UIKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+@objc public enum FATFeatureCategory : Swift.Int, Swift.CaseIterable {
+  case Native = 0
+  public var stringValue: Swift.String {
+    get
+  }
+  public static func fromString(_ string: Swift.String) -> FinAgentic.FATFeatureCategory
+  public init?(rawValue: Swift.Int)
+  public typealias AllCases = [FinAgentic.FATFeatureCategory]
+  public typealias RawValue = Swift.Int
+  nonisolated public static var allCases: [FinAgentic.FATFeatureCategory] {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum FATCapabilityType : Swift.Int, Swift.CaseIterable {
+  case UIAccess = 0
+  case AudioOutput = 1
+  case Bluetooth = 2
+  case NFC = 3
+  case Network = 4
+  case DeviceControl = 5
+  public var stringValue: Swift.String {
+    get
+  }
+  public static func fromString(_ string: Swift.String) -> FinAgentic.FATCapabilityType?
+  public init?(rawValue: Swift.Int)
+  public typealias AllCases = [FinAgentic.FATCapabilityType]
+  public typealias RawValue = Swift.Int
+  nonisolated public static var allCases: [FinAgentic.FATCapabilityType] {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum FATPrimitiveType : Swift.Int, Swift.CaseIterable {
+  case MobileUI = 0
+  case ShowDialog = 1
+  case NetworkOp = 2
+  case PlayAudio = 3
+  case BluetoothScan = 4
+  case NfcReadTag = 5
+  public init?(rawValue: Swift.Int)
+  public typealias AllCases = [FinAgentic.FATPrimitiveType]
+  public typealias RawValue = Swift.Int
+  nonisolated public static var allCases: [FinAgentic.FATPrimitiveType] {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public class FATPrimitive : ObjectiveC.NSObject {
+  @objc final public let primitiveType: FinAgentic.FATPrimitiveType
+  @objc final public let parameters: [Swift.String : Any]
+  @objc public init(primitiveType: FinAgentic.FATPrimitiveType, parameters: [Swift.String : Any])
+  @objc public func toDictionary() -> [Swift.String : Any]
+  @objc deinit
+}
+@objc final public class FATSandboxFeature : ObjectiveC.NSObject {
+  @objc final public var name: Swift.String
+  @objc final public var category: FinAgentic.FATFeatureCategory
+  @objc final public var path: Swift.String
+  @objc final public var primitives: [FinAgentic.FATPrimitive]
+  @objc public init(name: Swift.String, category: FinAgentic.FATFeatureCategory, path: Swift.String, primitives: [FinAgentic.FATPrimitive])
+  @objc final public func toDictionary() -> [Swift.String : Any]
+  @objc deinit
+}
+@objc public enum FATSensitivity : Swift.Int, Swift.CaseIterable {
+  case low = 0
+  case medium = 1
+  case high = 2
+  public var stringValue: Swift.String {
+    get
+  }
+  public static func fromString(_ string: Swift.String) -> FinAgentic.FATSensitivity
+  public init?(rawValue: Swift.Int)
+  public typealias AllCases = [FinAgentic.FATSensitivity]
+  public typealias RawValue = Swift.Int
+  nonisolated public static var allCases: [FinAgentic.FATSensitivity] {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum FATRateUnit : Swift.Int, Swift.CaseIterable {
+  case minute = 0
+  case day = 1
+  public var stringValue: Swift.String {
+    get
+  }
+  public static func fromString(_ string: Swift.String) -> FinAgentic.FATRateUnit
+  public init?(rawValue: Swift.Int)
+  public typealias AllCases = [FinAgentic.FATRateUnit]
+  public typealias RawValue = Swift.Int
+  nonisolated public static var allCases: [FinAgentic.FATRateUnit] {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public class FATRateLimit : ObjectiveC.NSObject {
+  @objc public var unit: FinAgentic.FATRateUnit
+  @objc public var max: Swift.Int
+  @objc public init(unit: FinAgentic.FATRateUnit, max: Swift.Int)
+  @objc public var unitString: Swift.String {
+    @objc get
+  }
+  @objc public func toDictionary() -> [Swift.String : Any]
+  @objc deinit
+}
+@objc public class FATSandboxFeaturePolicy : ObjectiveC.NSObject {
+  @objc public var requiresUserPresent: Foundation.NSNumber?
+  @objc public var requiresExplicitConsent: Foundation.NSNumber?
+  public var sensitivity: FinAgentic.FATSensitivity?
+  @objc public var rateLimit: FinAgentic.FATRateLimit?
+  @objc public init(requiresUserPresent: Foundation.NSNumber?, requiresExplicitConsent: Foundation.NSNumber?, sensitivity: FinAgentic.FATSensitivity, rateLimit: FinAgentic.FATRateLimit?)
+  @objc public func toDictionary() -> [Swift.String : Any]
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class FATSandboxManager : ObjectiveC.NSObject {
+  @objc public static let shared: FinAgentic.FATSandboxManager
+  @objc deinit
+}
+extension FinAgentic.FATSandboxManager {
+  @discardableResult
+  @objc dynamic public func applyManifest(_ manifest: [Swift.String : Any]) -> Swift.Bool
+  @discardableResult
+  @objc dynamic public func applyManifest(features: [FinAgentic.FATSandboxFeature], policies: [Swift.String : FinAgentic.FATSandboxFeaturePolicy] = [:]) -> Swift.Bool
+  @objc dynamic public func clearAuditLog()
+  @objc dynamic public func evaluateFeature(_ name: Swift.String, args: [Swift.String : Any], context: [Swift.String : Any]?, allow: @escaping () -> Swift.Void, deny: @escaping (_ reason: Swift.String?, _ error: Foundation.NSError?) -> Swift.Void)
+  @objc dynamic public func getAuditLog(_ error: Foundation.NSErrorPointer) -> [[Swift.String : Any]]?
+  @discardableResult
+  @objc dynamic public func registerFeature(_ feature: FinAgentic.FATSandboxFeature) -> Swift.Bool
+  @discardableResult
+  @objc dynamic public func setPolicies(policies: [Swift.String : FinAgentic.FATSandboxFeaturePolicy]) -> Swift.Bool
+  @discardableResult
+  @objc dynamic public func setPolicy(featureName: Swift.String, policy: FinAgentic.FATSandboxFeaturePolicy) -> Swift.Bool
+  @discardableResult
+  @objc dynamic public func updateResourceLimits(_ limits: [Swift.String : Any], error: Foundation.NSErrorPointer) -> Swift.Bool
+}
+@_inheritsConvenienceInitializers @objc(FinAgenticDownMarkdownParser) final public class DownMarkdownParser : ObjectiveC.NSObject {
+  @objc override dynamic public init()
+  @objc public static let shared: FinAgentic.DownMarkdownParser
+  @objc final public func parseMarkdown(_ markdown: Swift.String, font: UIKit.UIFont) -> Foundation.NSAttributedString
+  @objc deinit
+}
+extension FinAgentic.FATFeatureCategory : Swift.Equatable {}
+extension FinAgentic.FATFeatureCategory : Swift.Hashable {}
+extension FinAgentic.FATFeatureCategory : Swift.RawRepresentable {}
+extension FinAgentic.FATCapabilityType : Swift.Equatable {}
+extension FinAgentic.FATCapabilityType : Swift.Hashable {}
+extension FinAgentic.FATCapabilityType : Swift.RawRepresentable {}
+extension FinAgentic.FATPrimitiveType : Swift.Equatable {}
+extension FinAgentic.FATPrimitiveType : Swift.Hashable {}
+extension FinAgentic.FATPrimitiveType : Swift.RawRepresentable {}
+extension FinAgentic.FATSensitivity : Swift.Equatable {}
+extension FinAgentic.FATSensitivity : Swift.Hashable {}
+extension FinAgentic.FATSensitivity : Swift.RawRepresentable {}
+extension FinAgentic.FATRateUnit : Swift.Equatable {}
+extension FinAgentic.FATRateUnit : Swift.Hashable {}
+extension FinAgentic.FATRateUnit : Swift.RawRepresentable {}

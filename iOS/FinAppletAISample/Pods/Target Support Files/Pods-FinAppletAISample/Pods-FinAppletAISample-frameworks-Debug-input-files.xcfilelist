@@ -1,0 +1,5 @@
+${PODS_ROOT}/Target Support Files/Pods-FinAppletAISample/Pods-FinAppletAISample-frameworks.sh
+${BUILT_PRODUCTS_DIR}/Down/Down.framework
+${PODS_XCFRAMEWORKS_BUILD_DIR}/FinAgentic/FinAgentic.framework/FinAgentic
+${PODS_XCFRAMEWORKS_BUILD_DIR}/FinApplet/FinApplet.framework/FinApplet
+${PODS_XCFRAMEWORKS_BUILD_DIR}/FinSandboxSDK/SandboxSDK.framework/SandboxSDK

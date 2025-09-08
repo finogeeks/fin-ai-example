@@ -1,0 +1,11 @@
+framework module FinAgentic {
+  umbrella header "FinAgentic.h"
+  export *
+
+  module * { export * }
+}
+
+module FinAgentic.Swift {
+  header "FinAgentic-Swift.h"
+  requires objc
+}

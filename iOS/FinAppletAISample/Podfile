@@ -1,0 +1,14 @@
+# Uncomment the next line to define a global platform for your project
+ platform :ios, '15.0'
+source 'https://git.finogeeks.com/cocoapods/FinPods'
+source 'https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git'
+
+target 'FinAppletAISample' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for FinAppletAISample
+  pod 'FinAgentic'
+  pod 'FinApplet', '2.49.8-dev20250908v08'
+
+end
