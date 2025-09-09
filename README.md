@@ -11,17 +11,19 @@
 
 
 ## ⚙️ iOS 集成步骤
+### 第一步：安装cocoapods
+官方安装教程: https://guides.cocoapods.org/using/getting-started.html
 
 ### 第一步：配置 Podfile 依赖
-
-在 Podfile 中添加 FinApplet SDK 依赖，注意需要使用支持 AI 功能的版本（2.49.x 及以上）：
+iOS 项目中若没有Podfile文件，请先执行`pod init`
+在 Podfile 中添加 FinApplet SDK 依赖，注意需要使用支持 AI 功能的版本（2.49.8-AI-beta.2 及以上）：
 
 ```ruby
 platform :ios, '15.0'
 source 'https://git.finogeeks.com/cocoapods/FinPods'
 source 'https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git'
 
-target 'FinAppletAISample' do
+target '你自己项目的Target' do
   use_frameworks!
   
   # 使用支持 AI 功能的 SDK 版本
@@ -29,7 +31,6 @@ target 'FinAppletAISample' do
 end
 ```
 
-执行 `pod install` 安装依赖。
 
 ### 第二步：初始化 SDK 并启用 AI 功能
 
