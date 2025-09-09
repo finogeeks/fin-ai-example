@@ -5,10 +5,10 @@
 </p>
 
 <p align="center"> 
-    <strong>FinClip iOS DEMO</strong></br>
+    <strong>FinClip AI iOS 集成示例</strong></br>
 <p>
 <p align="center"> 
-        本项目提供在 iOS 环境中运行小程序的 DEMO 样例
+        本项目展示如何在 iOS 应用中集成 FinApplet SDK 并启用 AI 功能
 <p>
 
 <p align="center"> 
@@ -46,49 +46,147 @@
 
 这就是 FinClip ，就是有这么多不可思议！
 
-## ⚙️ 操作步骤
-### 第一步 修改 Podfile 文件，增加 FinApplet 依赖
-```pod
-source 'https://github.com/CocoaPods/Specs.git'
-pod 'FinApplet'
+## 🤖 FinApplet AI 功能
+
+FinApplet SDK 从 2.49.x 版本开始支持 AI 功能，允许小程序调用 AI 相关的 API 接口，实现智能化的用户体验。
+
+## 📱 iOS 项目结构
+
+本示例项目使用 Objective-C 开发，展示了 FinApplet SDK 的 AI 功能集成方法。
+
+### 项目目录说明
+```
+iOS/FinAppletAISample/
+├── FinAppletAISample/           # 主工程目录
+│   ├── AppDelegate.m            # SDK 初始化和 AI 功能配置
+│   ├── ViewController.m         # 打开小程序的示例代码
+│   └── ...
+├── Podfile                      # CocoaPods 依赖配置
+└── Pods/                        # 依赖库目录
 ```
 
-### 第二步 完成SDK初始化
-在工程的 `AppDelegate` 中的以下方法中，调用 SDK 的初始化方法。
+## ⚙️ iOS 集成步骤
+
+### 第一步：配置 Podfile 依赖
+
+在 Podfile 中添加 FinApplet SDK 依赖，注意需要使用支持 AI 功能的版本（2.49.x 及以上）：
+
+```ruby
+platform :ios, '15.0'
+source 'https://git.finogeeks.com/cocoapods/FinPods'
+source 'https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git'
+
+target 'FinAppletAISample' do
+  use_frameworks!
+  
+  # 使用支持 AI 功能的 SDK 版本
+  pod 'FinApplet', '2.49.8-dev20250908v11'
+end
+```
+
+执行 `pod install` 安装依赖。
+
+### 第二步：初始化 SDK 并启用 AI 功能
+
+在 `AppDelegate.m` 的 `application:didFinishLaunchingWithOptions:` 方法中初始化 SDK：
+
 ```objc
+#import <FinApplet/FinApplet.h>
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-	
-	// 需要添加至App中的代码--start
+    
+    // 配置服务器信息
     NSMutableArray *storeArrayM = [NSMutableArray array];
     FATStoreConfig *storeConfig = [[FATStoreConfig alloc] init];
-    storeConfig.sdkKey = @"您的sdkKey信息";
-    storeConfig.sdkSecret = @"您的sdkSecret信息";
-    storeConfig.apiServer = @"服务器域名";
-    storeConfig.apmServer = @"apm统计事件的域名";
+    storeConfig.sdkKey = @"您的sdkKey";
+    storeConfig.sdkSecret = @"您的sdkSecret";
+    storeConfig.apiServer = @"https://api.finclip.com";
+    storeConfig.cryptType = FATApiCryptTypeSM; // 使用国密加密
     [storeArrayM addObject:storeConfig];
     
+    // 创建配置并启用 AI 功能
     FATConfig *config = [FATConfig configWithStoreConfigs:storeArrayM];
-    [[FATClient sharedClient] initWithConfig:config error:nil];
-    // 需要添加至App中的代码--end
+    config.openAI = YES;  // 🔑 关键：启用 AI 功能
+    
+    // 初始化 SDK
+    BOOL result = [[FATClient sharedClient] initWithConfig:config error:nil];
+    NSLog(@"SDK 初始化%@！", result ? @"成功" : @"失败");
     
     return YES;
 }
 ```
 
-### 第三步打开小程序
+### 第三步：打开支持 AI 的小程序
+
+在 `ViewController.m` 中实现打开小程序的功能：
+
 ```objc
-NSString *appId = @"小程序id";
-// 打开小程序
-[[FATClient sharedClient] startRemoteApplet:appId startParams:nil InParentViewController:self completion:^(BOOL result, NSError *error) {
-    NSLog(@"result:%d---error:%@", result, error);
-}];
+#import <FinApplet/FinApplet.h>
+
+- (IBAction)openApplet:(id)sender {
+    FATAppletRequest *request = [[FATAppletRequest alloc] init];
+    request.appletId = @"小程序ID";
+    
+    [[FATClient sharedClient] startAppletWithRequest:request 
+                         InParentViewController:self 
+                                     completion:^(BOOL result, FATError *error) {
+        if (result) {
+            NSLog(@"打开小程序成功");
+        } else {
+            NSLog(@"打开小程序失败: %@", error);
+        }
+    } closeCompletion:^{
+        NSLog(@"小程序已关闭");
+    }];
+}
 ```
 
-- **SDK KEY** 和 **SDK SECRET** 可以从 [FinClip](https://finclip.com/#/home)  获取，点 [这里](https://finclip.com/#/register) 注册账号；
-- 进入平台后，在「应用管理」页面添加你自己的包名后，点击「复制」即可获得  key\secret\apisever 字段；
-- **apiServer** 和 **apiPrefix** 是固定字段，请直接参考本 DEMO ；
-- **小程序 ID** 是管理后台上架的小程序 APP ID，需要在「小程序管理」中创建并在「应用管理」中关联；
-> 小程序 ID 与 微信小程序ID 不一样哦！（这里是特指 FinClip 平台的 ID ）
+## 🔑 关键配置说明
+
+### AI 功能启用
+- **重要**：必须设置 `config.openAI = YES` 才能启用 AI 功能
+- SDK 版本要求：2.49.x 或更高版本
+- 小程序端需要相应的 AI API 调用权限
+
+### SDK 初始化参数
+- `sdkKey` 和 `sdkSecret`：从 FinClip 管理后台获取
+- `apiServer`：服务器地址，默认为 `https://api.finclip.com`
+- `cryptType`：加密类型，推荐使用 `FATApiCryptTypeSM`（国密）
+
+### 多服务器配置（可选）
+如需连接多个服务器，可以添加多个 `FATStoreConfig`：
+
+```objc
+// 第二个服务器配置
+FATStoreConfig *storeConfig2 = [[FATStoreConfig alloc] init];
+storeConfig2.sdkKey = @"另一个sdkKey";
+storeConfig2.sdkSecret = @"另一个sdkSecret";
+storeConfig2.apiServer = @"另一个服务器地址";
+[storeArrayM addObject:storeConfig2];
+```
+
+## 📋 注意事项
+
+1. **Bundle ID 关联**：SDK 的 `sdkKey` 和 `sdkSecret` 与应用的 Bundle ID 强关联，修改 Bundle ID 需要重新申请密钥
+2. **初始化时机**：所有小程序相关操作必须在 SDK 初始化成功后进行
+3. **iOS 版本要求**：最低支持 iOS 15.0
+4. **AI 功能权限**：需要在 FinClip 管理后台为小程序配置相应的 AI API 调用权限
+
+## 🔐 获取 SDK 密钥
+
+- **SDK KEY** 和 **SDK SECRET** 可以从 [FinClip](https://finclip.com/#/home) 获取，点 [这里](https://finclip.com/#/register) 注册账号
+- 进入平台后，在「应用管理」页面添加你自己的包名后，点击「复制」即可获得 key/secret/apiserver 字段
+- **小程序 ID** 是管理后台上架的小程序 APP ID，需要在「小程序管理」中创建并在「应用管理」中关联
+> 小程序 ID 与微信小程序 ID 不一样（这里特指 FinClip 平台的 ID）
+
+## 🧪 示例项目运行
+
+1. 克隆本仓库到本地
+2. 进入 iOS 项目目录：`cd iOS/FinAppletAISample`
+3. 安装依赖：`pod install`
+4. 打开 `FinAppletAISample.xcworkspace`
+5. 修改 `AppDelegate.m` 中的 SDK 配置信息
+6. 运行项目到真机或模拟器
 
 ## 📋 集成文档
 [点击这里](https://www.finclip.com/mop/document/introduce/quickStart/intergration-guide.html#_1-ios-%E5%BF%AB%E9%80%9F%E9%9B%86%E6%88%90) 查看 iOS 快速集成文档
