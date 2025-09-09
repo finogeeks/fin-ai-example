@@ -25,7 +25,7 @@ target 'FinAppletAISample' do
   use_frameworks!
   
   # 使用支持 AI 功能的 SDK 版本
-  pod 'FinApplet', '2.49.8-dev20250908v11'
+  pod 'FinApplet', '2.49.8-AI-beta.2'
 end
 ```
 
@@ -52,6 +52,7 @@ end
     // 创建配置并启用 AI 功能
     FATConfig *config = [FATConfig configWithStoreConfigs:storeArrayM];
     config.openAI = YES;  // 🔑 关键：启用 AI 功能
+    config.aiServer = @"https://fc-testing.finogeeks.club/api/agui"; // AI 服务器地址
     
     // 初始化 SDK
     BOOL result = [[FATClient sharedClient] initWithConfig:config error:nil];
@@ -90,32 +91,22 @@ end
 
 ### AI 功能启用
 - **重要**：必须设置 `config.openAI = YES` 才能启用 AI 功能
-- SDK 版本要求：2.49.8-dev20250908v11 或更高版本
+- **AI 服务器**：设置 `config.aiServer` 指定 AI 服务器地址
+- SDK 版本要求：2.49.8-AI-beta.2 或更高版本
 - 小程序端需要相应的 AI API 调用权限
 
 ### SDK 初始化参数
 - `sdkKey` 和 `sdkSecret`：从 FinClip 管理后台获取
 - `apiServer`：服务器地址，默认为 `https://api.finclip.com`
+- `openAI`: 是否开启小程序的AI功能
+- `aiServer`：AI 服务器地址，用于处理 AI 相关请求
 - `cryptType`：加密类型，推荐使用 `FATApiCryptTypeSM`（国密）
-
-### 多服务器配置（可选）
-如需连接多个服务器，可以添加多个 `FATStoreConfig`：
-
-```objc
-// 第二个服务器配置
-FATStoreConfig *storeConfig2 = [[FATStoreConfig alloc] init];
-storeConfig2.sdkKey = @"另一个sdkKey";
-storeConfig2.sdkSecret = @"另一个sdkSecret";
-storeConfig2.apiServer = @"另一个服务器地址";
-[storeArrayM addObject:storeConfig2];
-```
 
 ## 📋 注意事项
 
 1. **Bundle ID 关联**：SDK 的 `sdkKey` 和 `sdkSecret` 与应用的 Bundle ID 强关联，修改 Bundle ID 需要重新申请密钥
 2. **初始化时机**：所有小程序相关操作必须在 SDK 初始化成功后进行
 3. **iOS 版本要求**：最低支持 iOS 15.0
-4. **AI 功能权限**：需要在 FinClip 管理后台为小程序配置相应的 AI API 调用权限
 
 ## 🔐 获取 SDK 密钥
 

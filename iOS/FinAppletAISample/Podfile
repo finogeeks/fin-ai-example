@@ -7,6 +7,6 @@ target 'FinAppletAISample' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
   
-  pod 'FinApplet', '2.49.8-dev20250908v11'
+  pod 'FinApplet', '2.49.8-AI-beta.2'
 
 end

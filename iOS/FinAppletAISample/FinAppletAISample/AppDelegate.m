@@ -35,25 +35,15 @@ static NSString *apiServer2 = @"";
     storeConfig1.apiServer = apiServer1;
     storeConfig1.cryptType = FATApiCryptTypeSM;
     [storeArrayM addObject:storeConfig1];
-    
-    /*
-     如果有多个服务器，也可以多注册一组配置，但是要注意多个配置都成功时,初始化SDK才会成功
-     */
-//    FATStoreConfig *storeConfig2 = [[FATStoreConfig alloc] init];
-//    storeConfig2.sdkKey = sdkKey2;
-//    storeConfig2.sdkSecret = sdkSecret2;
-//    storeConfig2.apiServer = apiServer2;
-//    storeConfig2.cryptType = FATApiCryptTypeSM;
-//    [storeArrayM addObject:storeConfig2];
        
     FATConfig *config = [FATConfig configWithStoreConfigs:storeArrayM];
     config.openAI = YES;
+    config.aiServer = @"https://fc-testing.finogeeks.club/api/agui";
     /*
      注意：小程序的其他操作必须放在FATClient初始化之后，否则失效！！！
      */
     BOOL result = [[FATClient sharedClient] initWithConfig:config error:nil];
     NSLog(@"注册SDK%@！！！！", result? @"成功" : @"失败");
-    // 需要添加至App中的代码--end
     
     return YES;
 }
