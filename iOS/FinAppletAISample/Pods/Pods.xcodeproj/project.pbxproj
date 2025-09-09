@@ -31,11 +31,12 @@
 		};
 		DD3ABACFDA6BE7898E3F3E6E2DBE5A4B /* FinApplet */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 09FAFDB20EB650F688B1368FCB199F89 /* Build configuration list for PBXAggregateTarget "FinApplet" */;
+			buildConfigurationList = A050D42265632FBD0B798B6EB60CEDFE /* Build configuration list for PBXAggregateTarget "FinApplet" */;
 			buildPhases = (
-				10AF2C7DD20D61891CDC7F799C2F732B /* [CP] Copy XCFrameworks */,
+				EDE85DE971E91A86144F1437F31625A2 /* [CP] Copy XCFrameworks */,
 			);
 			dependencies = (
+				C42069567FD299E6A04EE851E624232C /* PBXTargetDependency */,
 			);
 			name = FinApplet;
 		};
@@ -189,6 +190,13 @@
 			remoteInfo = FinSandboxSDK;
 		};
 		E6D6661C4A8169BB065F364B7E3A4E73 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 12219585506A735793B362373F37A9FE;
+			remoteInfo = FinAgentic;
+		};
+		ED4535A8CB988E3589C9FDC721DCB4EF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
@@ -778,23 +786,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		10AF2C7DD20D61891CDC7F799C2F732B /* [CP] Copy XCFrameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/FinApplet/FinApplet-xcframeworks-input-files.xcfilelist",
-			);
-			name = "[CP] Copy XCFrameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/FinApplet/FinApplet-xcframeworks-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/FinApplet/FinApplet-xcframeworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		1B03CC4513CBAD42B7CCDA1B33EADF1C /* [CP] Copy XCFrameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -827,6 +818,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/FinAgentic/FinAgentic-xcframeworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EDE85DE971E91A86144F1437F31625A2 /* [CP] Copy XCFrameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/FinApplet/FinApplet-xcframeworks-input-files.xcfilelist",
+			);
+			name = "[CP] Copy XCFrameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/FinApplet/FinApplet-xcframeworks-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/FinApplet/FinApplet-xcframeworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -959,6 +967,12 @@
 			target = B4575FF01775E963E58050542C9A4E7A /* Down */;
 			targetProxy = AF57D9812E48FFDF90131FD54D99DCE6 /* PBXContainerItemProxy */;
 		};
+		C42069567FD299E6A04EE851E624232C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = FinAgentic;
+			target = 12219585506A735793B362373F37A9FE /* FinAgentic */;
+			targetProxy = ED4535A8CB988E3589C9FDC721DCB4EF /* PBXContainerItemProxy */;
+		};
 		CB0EFF7151BFAC87245A502309ACB830 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = FinAgentic;
@@ -974,9 +988,9 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		03DB1D7C95BBA1C12AC5556C06678C25 /* Release */ = {
+		117E6159F0CC92E9E7E946FA094EF239 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1EC068B43A233B401AD949C9905EDE28 /* FinApplet.release.xcconfig */;
+			baseConfigurationReference = 740EDF2DB5D150CEC3102804FCA1C871 /* FinApplet.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -988,9 +1002,8 @@
 				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
 			};
-			name = Release;
+			name = Debug;
 		};
 		2062E6CE38C7552FD5769A026851045F /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -1041,6 +1054,24 @@
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2970316E68D0865F03C44525BEA29271 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1EC068B43A233B401AD949C9905EDE28 /* FinApplet.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1204,23 +1235,6 @@
 			};
 			name = Release;
 		};
-		75EC51D5C22C37C605CC45AED13DCEA3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 740EDF2DB5D150CEC3102804FCA1C871 /* FinApplet.debug.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
 		90D4D09BCB6A4660E43ACBE9ECB6FE9A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1370,15 +1384,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		09FAFDB20EB650F688B1368FCB199F89 /* Build configuration list for PBXAggregateTarget "FinApplet" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				75EC51D5C22C37C605CC45AED13DCEA3 /* Debug */,
-				03DB1D7C95BBA1C12AC5556C06678C25 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		1D8A04A8925F6042026C9FA7E0A20563 /* Build configuration list for PBXAggregateTarget "FinSandboxSDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1411,6 +1416,15 @@
 			buildConfigurations = (
 				52FBB8E789D84EEE33CD45CE92500CE6 /* Debug */,
 				2062E6CE38C7552FD5769A026851045F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A050D42265632FBD0B798B6EB60CEDFE /* Build configuration list for PBXAggregateTarget "FinApplet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				117E6159F0CC92E9E7E946FA094EF239 /* Debug */,
+				2970316E68D0865F03C44525BEA29271 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
