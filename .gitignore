@@ -32,3 +32,34 @@ google-services.json
 
 # Android Profiling
 *.hprof
+
+# iOS / Xcode
+# User-specific
+xcuserdata/
+*.xcuserstate
+*.xcscmblueprint
+*.xccheckout
+
+# Build generated
+DerivedData/
+build/
+
+# CocoaPods
+iOS/*/Pods/
+iOS/*/Podfile.lock
+
+# Carthage
+Carthage/Build/
+Carthage/Checkouts
+
+# fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
+
+# Code Injection
+iOSInjectionProject/
+
+# Mac
+.DS_Store
